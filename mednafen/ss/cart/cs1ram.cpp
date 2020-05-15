@@ -24,6 +24,12 @@
 
 static uint16* CS1RAM = nullptr;
 
+// libRR start
+uint16* getCS1RAM() {
+  return CS1RAM;
+}
+// LibRR end
+
 template<typename T, bool IsWrite>
 static MDFN_HOT void CS1RAM_RW_DB(uint32 A, uint16* DB)
 {

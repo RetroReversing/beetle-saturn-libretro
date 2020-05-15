@@ -89,6 +89,15 @@ static uint16 VRAM[262144];
 
 static uint16 CRAM[2048];
 
+// libRR start
+uint16* getVDP2VRAM() {
+  return VRAM;
+}
+uint16* getVDP2CRAM() {
+  return CRAM;
+}
+// libRR end
+
 static struct
 {
  // Signed values are stored sign-extended to the full 32 bits.

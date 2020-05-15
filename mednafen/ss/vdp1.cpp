@@ -53,6 +53,15 @@ uint16 VRAM[0x40000];
 uint16 FB[2][0x20000];
 bool FBDrawWhich;
 
+// libRR start
+uint16* getVDP1VRAM() {
+  return VRAM;
+}
+uint16* getVDP1FrameBuffer() {
+  return FB[FBDrawWhich];
+}
+// libRR end
+
 static bool FBManualPending;
 
 static bool FBVBErasePending;

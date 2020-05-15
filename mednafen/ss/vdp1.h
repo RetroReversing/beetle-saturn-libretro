@@ -28,6 +28,11 @@
 namespace VDP1
 {
 
+// libRR changes start
+  uint16* getVDP1VRAM();
+  uint16* getVDP1FrameBuffer();
+// libRR changes end
+
 void Init(void) MDFN_COLD;
 void Kill(void) MDFN_COLD;
 void StateAction(StateMem* sm, const unsigned load, const bool data_only);
