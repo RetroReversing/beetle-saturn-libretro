@@ -72,8 +72,8 @@ static bool is_pal = false;
 
 char retro_save_directory[4096];
 char retro_base_directory[4096];
-static char retro_cd_base_directory[4096];
-static char retro_cd_path[4096];
+char retro_cd_base_directory[4096];
+char retro_cd_path[4096];
 char retro_cd_base_name[4096];
 #ifdef _WIN32
 static char retro_slash = '\\';

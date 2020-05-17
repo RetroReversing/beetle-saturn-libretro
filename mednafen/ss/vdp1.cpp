@@ -60,6 +60,9 @@ uint16* getVDP1VRAM() {
 uint16* getVDP1FrameBuffer() {
   return FB[FBDrawWhich];
 }
+uint16* getVDP1FrameBufferHidden() {
+  return FB[!FBDrawWhich];
+}
 // libRR end
 
 static bool FBManualPending;
