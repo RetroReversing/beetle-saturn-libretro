@@ -24,4 +24,7 @@
 
 void CART_CS1RAM_Init(CartInfo* c) MDFN_COLD;
 
+// libRR start
+uint16* getCS1RAM();
+// libRR end
 #endif

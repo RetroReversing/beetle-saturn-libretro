@@ -31,4 +31,7 @@ extern bool setting_multitap_port1;
 extern bool setting_multitap_port2;
 extern bool setting_midsync;
 
+// libRR start (important)
+#include "libRetroReversing/include/libRR.h"
+// libRR end
 #endif

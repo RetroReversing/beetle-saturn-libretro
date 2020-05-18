@@ -452,6 +452,7 @@ else
 endif
 
 include Makefile.common
+include ./libRetroReversing/Makefile.retroreversing
 
 WARNINGS := -Wall \
    -Wno-sign-compare \

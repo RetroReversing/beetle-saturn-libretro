@@ -25,6 +25,11 @@
 namespace VDP2
 {
 
+// libRR start
+uint16* getVDP2VRAM();
+uint16* getVDP2CRAM();
+// libRR end
+
 uint32 Write8_DB(uint32 A, uint16 DB) MDFN_HOT;
 uint32 Write16_DB(uint32 A, uint16 DB) MDFN_HOT;
 uint16 Read16_DB(uint32 A) MDFN_HOT;

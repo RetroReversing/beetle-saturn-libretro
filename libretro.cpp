@@ -159,6 +159,31 @@ static void INLINE SH7095_BusWrite(uint32 A, T V, const bool BurstHax, int32* SH
 template<typename T>
 static T INLINE SH7095_BusRead(uint32 A, const bool BurstHax, int32* SH2DMAHax);
 
+// libRR start
+extern uint16* getCS1RAM();
+extern uint16* getCartridgeROM();
+struct retro_memory_descriptor libRR_mmap[] =
+{
+   // flags | pointer | offset | start | select | disconnect | length | name
+   0, BIOSROM, 0, 0, 0, 0, 0xFFFFF, "BOOTROM",
+   0, NULL, 0, 0x00100000, 0, 0, 0x7FFFF, "SMPC",
+   0, BackupRAM, 0, 0x00180000, 0, 0, 0x7FFFF, "BACKUPRAM",
+   0, WorkRAML, 0, 0x00200000, 0, 0, 0x1FFFFF, "LOWWRAM",
+   0, NULL, 0, 0x01000000, 0, 0, 0x7FFFFF, "SLAVEFRT",
+   0, NULL, 0, 0x01800000, 0, 0, 0x7FFFFF, "MASTERFRT",
+   0, getCartridgeROM(), 0, 0x02000000, 0, 0, 0x1FFFFFF, "CARTRIDGE",
+   0, getCS1RAM(), 0, 0x04000000, 0, 0, 0xFFFFFF, "CS1RAM",
+   0, VDP1::getVDP1VRAM(), 0, 0x05C00000, 0, 0, 0x7FFFF, "VDP1VRAM",
+   0, VDP1::getVDP1FrameBuffer(), 0,  0x05C80000, 0, 0, 0x7FFFF, "VDP1FB",
+   0, VDP2::getVDP2VRAM(), 0, 0x05E00000, 0, 0, 0xEFFFFF, "VDP2VRAM",
+   0, VDP2::getVDP2CRAM(), 0,  0x05F00000, 0, 0, 0x7FFFF, "VDP2CRAM",
+   0, WorkRAMH, 0, 0x06000000, 0, 0, 0x1FFFFFF, "HIGHRAM",
+};
+
+int libRR_mmap_descriptors = 12;
+// libRR end
+
+
 /*
  SH-2 external bus address map:
   CS0: 0x00000000...0x01FFFFFF (16-bit)
@@ -2085,6 +2110,10 @@ bool retro_load_game(const struct retro_game_info *info)
    extract_basename(retro_cd_base_name,       info->path, sizeof(retro_cd_base_name));
    extract_directory(retro_cd_base_directory, info->path, sizeof(retro_cd_base_directory));
 
+   // libRR start
+	libRR_handle_load_game(info, environ_cb);
+	// libRR end
+
    snprintf(tocbasepath, sizeof(tocbasepath), "%s%c%s.toc", retro_cd_base_directory, retro_slash, retro_cd_base_name);
 
    if (!strstr(tocbasepath, "cdrom://") && filestream_exists(tocbasepath))
@@ -2129,6 +2158,9 @@ void retro_unload_game(void)
 
    MDFN_FlushGameCheats(0);
 
+   // libRR start
+   libRR_handle_emulator_close();
+   // libRR end
    CloseGame();
 
    if (MDFNGameInfo->RMD)
@@ -2160,6 +2192,12 @@ void retro_run(void)
    static unsigned width, height;
    static unsigned game_width, game_height;
 
+   // libRR start
+   bool should_continue = libRR_run_frame();
+   if (!should_continue) {
+      return;
+   }
+   // libRR end
    if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE_UPDATE, &updated) && updated)
       check_variables(false);
 

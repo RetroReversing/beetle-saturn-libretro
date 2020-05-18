@@ -24,6 +24,12 @@
 
 static uint16 ROM[0x100000];
 
+// libRR start
+uint16* getCartridgeROM() {
+   return ROM;
+}
+// libRR end
+
 static MDFN_HOT void ROM_Read(uint32 A, uint16* DB)
 {
  // TODO: Check mirroring.
