@@ -31,6 +31,7 @@ namespace VDP1
 // libRR changes start
   uint16* getVDP1VRAM();
   uint16* getVDP1FrameBuffer();
+  uint16* getVDP1FrameBufferHidden();
 // libRR changes end
 
 void Init(void) MDFN_COLD;
