@@ -5,3 +5,4 @@
 *.lib
 *.exp
 *.manifest
+*.dylib
