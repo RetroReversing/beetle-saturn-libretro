@@ -452,6 +452,7 @@ else
 endif
 
 include Makefile.common
+libRetroReversingConsole = Saturn
 include ./libRetroReversing/Makefile.retroreversing
 
 WARNINGS := -Wall \
