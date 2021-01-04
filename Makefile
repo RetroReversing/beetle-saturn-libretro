@@ -442,7 +442,7 @@ else
    CXX ?= g++
    IS_X86 = 1
    SHARED := -shared -Wl,--no-undefined -Wl,--version-script=link.T
-   LDFLAGS += -static-libgcc -static-libstdc++ -lwinmm
+   LDFLAGS += -static-libgcc -lwinmm
    FLAGS += -DHAVE__MKDIR
    ifeq ($(HAVE_OPENGL),1)
       GL_LIB := -lopengl32
